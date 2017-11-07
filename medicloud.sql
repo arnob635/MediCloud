@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2017 at 08:29 PM
+-- Generation Time: Nov 07, 2017 at 08:37 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -22,6 +22,21 @@ SET time_zone = "+00:00";
 -- Database: `medicloud`
 --
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doctors`
+--
+
+CREATE TABLE `doctors` (
+  `dID` int(11) NOT NULL,
+  `dPass` varchar(16) NOT NULL DEFAULT 'password',
+  `dName` varchar(50) DEFAULT NULL,
+  `speciality` varchar(50) DEFAULT NULL,
+  `qualification` varchar(50) DEFAULT NULL,
+  `clinicAdd` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `doctors`
 --
@@ -30,6 +45,22 @@ INSERT INTO `doctors` (`dID`, `dPass`, `dName`, `speciality`, `qualification`, `
 (1, 'password', 'John Doe', 'Optometry', 'MBBS, FCPS, HTML', 'House number, Something street, Some state, Olympus'),
 (2, 'password', 'Jane Moe', 'Nephrology', 'FCPS, PHP', 'Basha code, Random road, Weird city, Bermuda');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patients`
+--
+
+CREATE TABLE `patients` (
+  `pID` int(11) NOT NULL,
+  `pPass` varchar(16) DEFAULT 'password',
+  `pName` varchar(50) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `gender` varchar(1) DEFAULT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `currDiag` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `patients`
 --
@@ -37,6 +68,38 @@ INSERT INTO `doctors` (`dID`, `dPass`, `dName`, `speciality`, `qualification`, `
 INSERT INTO `patients` (`pID`, `pPass`, `pName`, `age`, `gender`, `Address`, `currDiag`) VALUES
 (1, 'password', 'Fevro Sickleton', 40, 'm', 'bla, blu, muh, meh', 'Very Sick, ples help'),
 (2, 'password', 'Swollenia Footmeister', 27, 'f', 'there, then that way, then right, tada', 'HugeFootitis');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `doctors`
+--
+ALTER TABLE `doctors`
+  ADD PRIMARY KEY (`dID`);
+
+--
+-- Indexes for table `patients`
+--
+ALTER TABLE `patients`
+  ADD PRIMARY KEY (`pID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `doctors`
+--
+ALTER TABLE `doctors`
+  MODIFY `dID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `patients`
+--
+ALTER TABLE `patients`
+  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

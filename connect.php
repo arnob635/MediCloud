@@ -1,12 +1,12 @@
 <?php
+$db_name = "medicloud";
+$mysql_username = "root";
+$mysql_password = "";
+$server_name = "localhost";
 
-$host = 'localhost';
-$user= 'root';
-$pass= '';
-$db='testdb';
-
-$con=mysqli_connect($host,$user,$pass,$db);
-if($con)
-echo "connected";
-
+$conn = mysqli_connect ($server_name, $mysql_username, $mysql_password, $db_name);
+if($conn){
+	echo "Connection Established. ";
+}
+else echo "Connection didn't work. ";
 ?>

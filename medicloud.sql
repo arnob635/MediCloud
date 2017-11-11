@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2017 at 08:37 PM
+-- Generation Time: Nov 11, 2017 at 06:50 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -25,6 +25,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `accounts`
+--
+
+CREATE TABLE `accounts` (
+  `email` varchar(128) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `ID` int(11) NOT NULL,
+  `isDoc` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`email`, `password`, `ID`, `isDoc`) VALUES
+('fevrosickleton@dmail.com', 'password', 1, 0),
+('guydudeson@dmail.com', 'password', 3, 0),
+('janedoe@dmail.com', 'password', 2, 1),
+('johndoe@dmail.com', 'deersanddoes', 1, 1),
+('swollenia@dmail.com', 'password', 2, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `doctors`
 --
 
@@ -42,7 +66,7 @@ CREATE TABLE `doctors` (
 --
 
 INSERT INTO `doctors` (`dID`, `dPass`, `dName`, `speciality`, `qualification`, `clinicAdd`) VALUES
-(1, 'password', 'John Doe', 'Optometry', 'MBBS, FCPS, HTML', 'House number, Something street, Some state, Olympus'),
+(1, 'deersanddoes', 'John Doe', 'Optometry', 'MBBS, FCPS, HTML', 'House number, Something street, Some state, Olympus'),
 (2, 'password', 'Jane Moe', 'Nephrology', 'FCPS, PHP', 'Basha code, Random road, Weird city, Bermuda');
 
 -- --------------------------------------------------------
@@ -67,11 +91,18 @@ CREATE TABLE `patients` (
 
 INSERT INTO `patients` (`pID`, `pPass`, `pName`, `age`, `gender`, `Address`, `currDiag`) VALUES
 (1, 'password', 'Fevro Sickleton', 40, 'm', 'bla, blu, muh, meh', 'Very Sick, ples help'),
-(2, 'password', 'Swollenia Footmeister', 27, 'f', 'there, then that way, then right, tada', 'HugeFootitis');
+(2, 'password', 'Swollenia Footmeister', 27, 'f', 'there, then that way, then right, tada', 'HugeFootitis'),
+(3, 'password', 'Guy Dudeson', 25, 'm', NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `accounts`
+--
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`email`);
 
 --
 -- Indexes for table `doctors`
@@ -99,7 +130,7 @@ ALTER TABLE `doctors`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

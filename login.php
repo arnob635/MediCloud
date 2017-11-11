@@ -1,7 +1,7 @@
 <?php
 require "connect.php";
-$username = "John Doe";
-$user_pass = "deersanddoes";
+$username = $_POST["username"];
+$user_pass = $_POST["password"];
 $test_sql_query = "SELECT * FROM doctors WHERE dName like '$username' AND dPass = '$user_pass'";
 
 $result = mysqli_query($conn, $test_sql_query);

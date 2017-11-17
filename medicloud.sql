@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2017 at 08:56 PM
+-- Generation Time: Nov 17, 2017 at 07:36 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -40,6 +40,7 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`email`, `password`, `ID`, `isDoc`) VALUES
+('arnob635@gmail.com', '123456', 11223, 1),
 ('fevrosickleton@dmail.com', 'password', 1, 0),
 ('guydudeson@dmail.com', 'password', 3, 0),
 ('janedoe@dmail.com', 'password', 2, 1),

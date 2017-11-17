@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2017 at 08:28 PM
+-- Generation Time: Nov 17, 2017 at 10:21 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `accounts` (
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `ID` int(50) NOT NULL,
+  `generalID` varchar(50) NOT NULL,
   `isDoctor` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -39,8 +39,15 @@ CREATE TABLE `accounts` (
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`email`, `password`, `ID`, `isDoctor`) VALUES
-('abir.rahman1995@gmail.com', '8953814', 1530412042, 1);
+INSERT INTO `accounts` (`email`, `password`, `generalID`, `isDoctor`) VALUES
+('abir.rahman1995@gmail.com', '8953814', '1530412042', 1),
+('arnob69@gmail.com', '123', '1', 0),
+('fariha69@gmail.com', '123', '3', 0),
+('jawad69@gmail.com', '123', '4', 0),
+('nubraz69@gmail.com', '123', '5', 0),
+('nur69@gmail.com', '123', '6', 0),
+('ishfaq69@gmail.com', '123', '7', 0),
+('abir69@gmail.com', '123', '2', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2017 at 07:49 PM
+-- Generation Time: Nov 17, 2017 at 08:01 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -94,7 +94,8 @@ CREATE TABLE `patients` (
 INSERT INTO `patients` (`pID`, `pPass`, `pName`, `age`, `gender`, `Address`, `currDiag`) VALUES
 (1, 'password', 'Fevro Sickleton', 40, 'm', 'bla, blu, muh, meh', 'Very Sick, ples help'),
 (2, 'password', 'Swollenia Footmeister', 27, 'f', 'there, then that way, then right, tada', 'HugeFootitis'),
-(3, 'password', 'Guy Dudeson', 25, 'm', NULL, NULL);
+(3, 'password', 'Guy Dudeson', 25, 'm', NULL, NULL),
+(221, 'arnob', 'arnob', 20, 'M', 'blah blah', 'fine');
 
 --
 -- Indexes for dumped tables
@@ -132,7 +133,7 @@ ALTER TABLE `doctors`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

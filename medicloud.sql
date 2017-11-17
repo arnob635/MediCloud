@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2017 at 07:36 PM
+-- Generation Time: Nov 17, 2017 at 07:51 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -68,7 +68,8 @@ CREATE TABLE `doctors` (
 
 INSERT INTO `doctors` (`dID`, `dPass`, `dName`, `speciality`, `qualification`, `clinicAdd`) VALUES
 (1, 'deersanddoes', 'John Doe', 'Optometry', 'MBBS, FCPS, HTML', 'House number, Something street, Some state, Olympus'),
-(2, 'password', 'Jane Moe', 'Nephrology', 'FCPS, PHP', 'Basha code, Random road, Weird city, Bermuda');
+(2, 'password', 'Jane Moe', 'Nephrology', 'FCPS, PHP', 'Basha code, Random road, Weird city, Bermuda'),
+(1234569, 'password', 'Abar Ruhman', 'Penis', 'Bangladesh Medical College and Hospital', 'Uttara');
 
 -- --------------------------------------------------------
 
@@ -125,7 +126,7 @@ ALTER TABLE `patients`
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `dID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `dID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123456790;
 
 --
 -- AUTO_INCREMENT for table `patients`

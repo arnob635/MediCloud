@@ -7,7 +7,7 @@ $password = $_POST["password"];
 $con=mysqli_connect($host,$user,$pass,$db);
 
 
-$sql = "INSERT INTO accounts (email,password) values ($email,$password)";
+$sql = "INSERT INTO accounts (email,password) values ('$email','$password')";
 
 $query= mysqli_query($con,$sql);
 

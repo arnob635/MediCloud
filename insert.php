@@ -1,9 +1,19 @@
 <?php
-require "login.php";
-if($is_loggedin){
-	$sql = "INSERT INTO patients (pName,age,gender) VALUES ('Guy Dudeson',25,'m')";
-	$query= mysqli_query($conn, $sql);
-	if($query)
-		echo "Insertion by ".$username." Successful. ";
-}
+
+$host = 'localhost';
+$user= 'root';
+$pass= '';
+$db='testdb';
+
+$con=mysqli_connect($host,$user,$pass,$db);
+if($con)
+echo "connected";
+
+$sql = "insert into patient (Name,ID,Phone_Number) values ('Jawad',123346,01676255)";
+
+$query= mysqli_query($con,$sql);
+
+if($query)
+	echo " insert succesful ";
+
 ?>

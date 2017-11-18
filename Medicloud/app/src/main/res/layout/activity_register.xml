@@ -13,8 +13,13 @@
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword|number"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="186dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="55dp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_con"
+        app:layout_constraintHorizontal_bias="0.503" />
 
     <Button
         android:id="@+id/bt_con"
@@ -22,8 +27,13 @@
         android:layout_height="45dp"
         android:onClick="onReg"
         android:text="continue"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="362dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="134dp"
+        app:layout_constraintHorizontal_bias="0.503" />
 
     <EditText
         android:id="@+id/et_email"
@@ -32,7 +42,15 @@
         android:ems="10"
         android:hint="medicloud@example.com"
         android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="110dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_password"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintVertical_bias="0.61" />
 
 </android.support.constraint.ConstraintLayout>

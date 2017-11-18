@@ -1,10 +1,12 @@
 <?php
 
-$db_name = "medicloud";
-$mysql_username = "root";
-$mysql_password = "";
-$server_name = "localhost";
+$host = 'localhost';
+$user= 'root';
+$pass= '';
+$db='medicloud';
 
-$conn = mysqli_connect ($server_name, $mysql_username, $mysql_password, $db_name);
+$con=mysqli_connect($host,$user,$pass,$db);
+if($con)
+echo "connected";
 
 ?>

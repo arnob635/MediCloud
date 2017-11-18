@@ -27,3 +27,7 @@ public class MainActivity extends AppCompatActivity {
         bgP.execute(type, username, pass);
     }
 }
+
+public void openReg(View view){
+    startActivity(onNewIntent(this,register.class));
+}

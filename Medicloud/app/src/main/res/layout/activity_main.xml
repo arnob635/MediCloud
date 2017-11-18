@@ -76,4 +76,13 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/btn_reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SignUp"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="408dp"
+        android:onClick="openReg"/>
+
 </android.support.constraint.ConstraintLayout>

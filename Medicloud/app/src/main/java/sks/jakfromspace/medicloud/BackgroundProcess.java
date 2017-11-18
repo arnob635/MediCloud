@@ -34,6 +34,8 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
     protected String doInBackground(String... params) {
         String type = params[0];
         String loginURL = "http://localhost/MEDICLOUD/login.php";
+        String registerURL = "http://localhost/MEDICLOUD/register.php";
+
         if(type.equals("login")) try {
             String username = params[1];
             String password = params[2];
@@ -67,6 +69,42 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+
+        } else if(type.equals("register")){try {
+            String email = params[1];
+            String password = params[2];
+           // String cpassword = params[3];
+            URL url = new URL(registerURL);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+
+            OutputStream out = httpURLConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+            String postdata = URLEncoder.encode("email", "UTF-8")+"=" +URLEncoder.encode(email, "UTF-8")+"&"
+                    +URLEncoder.encode("password", "UTF-8")+"=" +URLEncoder.encode(password, "UTF-8");
+            writer.write(postdata);
+            writer.flush();
+            writer.close();
+            out.close();
+
+            InputStream in = httpURLConnection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in,"iso-8859-1"));
+            String result="", line="";
+            while ((line = reader.readLine()) != null){
+                result += line;
+            }
+            reader.close();
+            in.close();
+            httpURLConnection.disconnect();
+            return result;
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+
         }
         return null;
     }

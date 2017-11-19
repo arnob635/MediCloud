@@ -1,6 +1,8 @@
 package sks.jakfromspace.medicloud;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         editpass = (EditText) findViewById(R.id.editPassword);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     public void OnLogin(View view) {
         String username = editemail.getText().toString();
         String pass = editpass.getText().toString();
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void openReg(View view) {
-        startActivity(new Intent(this, register.class));
+    public void onSignUp(View view) {
+        startActivity(new Intent(this, Register.class));
     }
 }

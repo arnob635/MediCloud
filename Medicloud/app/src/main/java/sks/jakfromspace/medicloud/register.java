@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
-public class Register extends AppCompatActivity {
+public class register extends AppCompatActivity {
 
     EditText email,password;
     @Override

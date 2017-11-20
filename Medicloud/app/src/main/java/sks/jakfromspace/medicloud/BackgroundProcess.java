@@ -4,9 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -35,10 +32,15 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        int newID = -1;
+
         String type = params[0];
-        String loginURL = "http://192.168.0.107/MEDICLOUD/login.php";
-        String registerURL = "http://192.168.0.107/MEDICLOUD/register.php";
+<<<<<<< HEAD
+        String loginURL = "http://sks.heliohost.org/login.php";
+        String registerURL = "http://sks.heliohost.org/register.php";
+=======
+        String loginURL = "http://localhost/MEDICLOUD/login.php";
+        String registerURL = "http://localhost/MEDICLOUD/register.php";
+>>>>>>> d561f3dfd6fb6cd2ab21fed8ed639c5fb3336755
 
         if(type.equals("login")) try {
             String username = params[1];
@@ -74,7 +76,7 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
         } catch (IOException e) {
             e.printStackTrace();
 
-        } else if(type.equals("register")){try {
+        }/* else if(type.equals("register")){try {
             String email = params[1];
             String password = params[2];
            // String cpassword = params[3];
@@ -101,11 +103,11 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
             while ((line = reader.readLine()) != null){
                 result += line;
             }
-            JSONObject responseJSON = new JSONObject(result);
-            newID = responseJSON.getInt("id");
-
+            //JSONObject responseJSON = new JSONObject(result);
+            //newID = responseJSON.getInt("id");
             reader.close();
             in.close();
+
             httpURLConnection.disconnect();
             return result;
 
@@ -113,17 +115,17 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-        } else if(type.equals("registerUpdate")){try {
-            int id = Integer.parseInt(params[1]);
-            String name = params[2];
-            String dob = params[3];
-            String blood_group = params[4];
-            String sex = params[5];
-            String phone_number = params[6];
-            String address = params[7];
+        }*/ else if(type.equals("register")){try {
+            //int id = Integer.parseInt(params[1]);
+            String name = params[1];
+            String dob = params[2];
+            String blood_group = params[3];
+            String sex = params[4];
+            String phone_number = params[5];
+            String address = params[6];
+            String email = params[7];
+            String password = params[8];
             URL url = new URL(registerURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -132,20 +134,16 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
 
             OutputStream out = httpURLConnection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
-            String postdata = URLEncoder.encode("id", "UTF-8")+"="
-                    +URLEncoder.encode(String.valueOf(id), "UTF-8")+"&"
-                    +URLEncoder.encode("name", "UTF-8")+"="
-                    +URLEncoder.encode(name, "UTF-8")
-                    +URLEncoder.encode("dob", "UTF-8")+"="
-                    +URLEncoder.encode(dob, "UTF-8")
-                    +URLEncoder.encode("blood_group", "UTF-8")+"="
-                    +URLEncoder.encode(blood_group, "UTF-8")
-                    +URLEncoder.encode("sex", "UTF-8")+"="
-                    +URLEncoder.encode(sex, "UTF-8")
-                    +URLEncoder.encode("phone_number", "UTF-8")+"="
-                    +URLEncoder.encode(phone_number, "UTF-8")
-                    +URLEncoder.encode("address", "UTF-8")+"="
-                    +URLEncoder.encode(address, "UTF-8");
+
+            String postdata = URLEncoder.encode("email", "UTF-8")+"="+URLEncoder.encode(email, "UTF-8")+"&"
+                    +URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(password, "UTF-8")+"&"
+                    +URLEncoder.encode("name", "UTF-8")+"="+URLEncoder.encode(name, "UTF-8")+"&"
+                    +URLEncoder.encode("dob", "UTF-8")+"="+URLEncoder.encode(dob, "UTF-8")+"&"
+                    +URLEncoder.encode("blood_group", "UTF-8")+"="+URLEncoder.encode(blood_group, "UTF-8")+"&"
+                    +URLEncoder.encode("sex", "UTF-8")+"="+URLEncoder.encode(sex, "UTF-8")+"&"
+                    +URLEncoder.encode("phone_number", "UTF-8")+"="+URLEncoder.encode(phone_number, "UTF-8")+"&"
+                    +URLEncoder.encode("address", "UTF-8")+"="+URLEncoder.encode(address, "UTF-8");
+            System.out.println(postdata);
             writer.write(postdata);
             writer.flush();
             writer.close();
@@ -162,8 +160,6 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
             httpURLConnection.disconnect();
             return result;
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -174,7 +170,7 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
     @Override
     protected void onPreExecute() {
         alert = new AlertDialog.Builder(context).create();
-        alert.setTitle("Login State");
+        alert.setTitle("Cloud Response:");
     }
 
     @Override

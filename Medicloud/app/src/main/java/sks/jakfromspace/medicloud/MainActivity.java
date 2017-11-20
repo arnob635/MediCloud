@@ -33,6 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onSignUp(View view) {
-        startActivity(new Intent(this, Register.class));
+        startActivity(new Intent(this, register.class));
     }
 }

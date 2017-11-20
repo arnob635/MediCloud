@@ -37,8 +37,8 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
     protected String doInBackground(String... params) {
         int newID = -1;
         String type = params[0];
-        String loginURL = "http://192.168.0.107/MEDICLOUD/login.php";
-        String registerURL = "http://192.168.0.107/MEDICLOUD/register.php";
+        String loginURL = "http://localhost/MEDICLOUD/login.php";
+        String registerURL = "http://localhost/MEDICLOUD/register.php";
 
         if(type.equals("login")) try {
             String username = params[1];

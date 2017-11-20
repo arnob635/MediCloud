@@ -34,14 +34,8 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
     protected String doInBackground(String... params) {
 
         String type = params[0];
-<<<<<<< HEAD
-<<<<<<< HEAD
         String loginURL = "http://sks.heliohost.org/login.php";
         String registerURL = "http://sks.heliohost.org/register.php";
-=======
-        String loginURL = "http://localhost/MEDICLOUD/login.php";
-        String registerURL = "http://localhost/MEDICLOUD/register.php";
->>>>>>> d561f3dfd6fb6cd2ab21fed8ed639c5fb3336755
 
         if(type.equals("login")) try {
             String username = params[1];

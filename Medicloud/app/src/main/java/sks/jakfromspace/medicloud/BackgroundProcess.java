@@ -35,6 +35,7 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
 
         String type = params[0];
 <<<<<<< HEAD
+<<<<<<< HEAD
         String loginURL = "http://sks.heliohost.org/login.php";
         String registerURL = "http://sks.heliohost.org/register.php";
 =======

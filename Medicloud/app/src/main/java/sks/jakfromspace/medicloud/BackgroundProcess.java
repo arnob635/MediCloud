@@ -1,8 +1,13 @@
 package sks.jakfromspace.medicloud;
 
-import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -23,7 +28,10 @@ import java.net.URLEncoder;
 public class BackgroundProcess extends AsyncTask<String, String, String> {
 
     Context context;
-    AlertDialog alert;
+    String type;
+
+    Intent newIntent;
+    boolean loginSuccess = false;
 
     BackgroundProcess (Context c){
         context = c;
@@ -33,7 +41,7 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String type = params[0];
+        type = params[0];
         String loginURL = "http://sks.heliohost.org/login.php";
         String registerURL = "http://sks.heliohost.org/register.php";
 
@@ -56,62 +64,56 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
             out.close();
 
             InputStream in = httpURLConnection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in,"iso-8859-1"));
-            String result="", line="";
-            while ((line = reader.readLine()) != null){
-                result += line;
+            String result = "";
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
             }
+            in.close();
+            result = sb.toString();
+            Log.i("Json",result);
+            JSONObject responseJSON = new JSONObject(result);
+            boolean isDoc  = responseJSON.getInt("isDoc") > 0;
+
+            loginSuccess = responseJSON.getBoolean("success");
+            MainActivity.isDoc = isDoc;
+
             reader.close();
             in.close();
             httpURLConnection.disconnect();
-            return result;
+
+            if(!isDoc) {
+                String patname = responseJSON.getString("patname");
+                String dob = responseJSON.getString("dob");
+                String bg = responseJSON.getString("bg");
+                String sex = responseJSON.getString("sex");
+                String phone = responseJSON.getString("phone");
+                String address = responseJSON.getString("address");
+
+                newIntent = new Intent(context, Patientstart.class);
+                newIntent.putExtra("patname",patname);
+                newIntent.putExtra("dob",dob);
+                newIntent.putExtra("bg",bg);
+                newIntent.putExtra("sex",sex);
+                newIntent.putExtra("phone",phone);
+                newIntent.putExtra("address",address);
+            }else{
+                //newIntent = new Intent(context, Docstart.class);
+                Toast toast = Toast.makeText(context, "Hello Doctor " + username, Toast.LENGTH_LONG);
+                toast.show();
+            }
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-
-        }/* else if(type.equals("register")){try {
-            String email = params[1];
-            String password = params[2];
-           // String cpassword = params[3];
-            URL url = new URL(registerURL);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setDoOutput(true);
-            httpURLConnection.setDoInput(true);
-
-            OutputStream out = httpURLConnection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
-            String postdata = URLEncoder.encode("email", "UTF-8")+"="
-                    +URLEncoder.encode(email, "UTF-8")+"&"
-                    +URLEncoder.encode("password", "UTF-8")+"="
-                    +URLEncoder.encode(password, "UTF-8");
-            writer.write(postdata);
-            writer.flush();
-            writer.close();
-            out.close();
-
-            InputStream in = httpURLConnection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in,"iso-8859-1"));
-            String result="", line="";
-            while ((line = reader.readLine()) != null){
-                result += line;
-            }
-            //JSONObject responseJSON = new JSONObject(result);
-            //newID = responseJSON.getInt("id");
-            reader.close();
-            in.close();
-
-            httpURLConnection.disconnect();
-            return result;
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-        }*/ else if(type.equals("register")){try {
+
+        else if(type.equals("register")){try {
             //int id = Integer.parseInt(params[1]);
             String name = params[1];
             String dob = params[2];
@@ -164,14 +166,19 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPreExecute() {
-        alert = new AlertDialog.Builder(context).create();
-        alert.setTitle("Cloud Response:");
+
     }
 
     @Override
     protected void onPostExecute(String result) {
-        alert.setMessage(result);
-        alert.show();
+        if(type.equals("login") && loginSuccess) {
+            context.startActivity(newIntent);
+            Toast toast = Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG);
+            toast.show();
+        }else{
+            Toast toast = Toast.makeText(context, "Error, Check Credentials", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     @Override

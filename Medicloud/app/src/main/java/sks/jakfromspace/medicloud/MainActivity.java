@@ -2,15 +2,17 @@ package sks.jakfromspace.medicloud;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText editemail, editpass;
+    public static boolean isDoc = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         bgP.execute(type, username, pass);
     }
 
-
     public void onSignUp(View view) {
-        startActivity(new Intent(this, register.class));
+        startActivity(new Intent(this, Register.class));
     }
+
 }

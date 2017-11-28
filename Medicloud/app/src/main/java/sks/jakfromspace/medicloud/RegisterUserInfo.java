@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import android.widget.Toast;
 
 public class RegisterUserInfo extends AppCompatActivity {
     EditText name,dob,blood_group,sex,phone_number,address;
@@ -43,21 +40,25 @@ public class RegisterUserInfo extends AppCompatActivity {
         String str_phone_number = phone_number.getText().toString();
         String str_address = address.getText().toString();
         //String type2 = "registerUpdate";
-
-        if(str_name.length() != 0) {
+        boolean formcom = str_name.length()!=0 && str_dob.length()!=0 && str_sex.length()!=0 && str_phone_number.length()!=0;
+        if(formcom) {
             BackgroundProcess bgProcessUser = new BackgroundProcess(this);
             bgProcessUser.execute(type, str_name, str_dob, str_blood_group, str_sex, str_phone_number, str_address, str_email, str_password);
-        }
-        Button nextUpdateButt = (Button) findViewById(R.id.bt_update);
-        nextUpdateButt.setEnabled(false);
+            //Button nextUpdateButt = (Button) findViewById(R.id.bt_update);
+            //nextUpdateButt.setEnabled(false);
 
-        new Timer().schedule(new TimerTask() {
+            startActivity(new Intent(getApplicationContext(),MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        }
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(), "Please Complete the Form", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        /*new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 // this code will be executed after 2 seconds
             }
-        }, 5000);
+        }, 5000);*/
 
     }
 }

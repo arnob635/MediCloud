@@ -3,11 +3,14 @@ package sks.jakfromspace.medicloud;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class Patientstart extends AppCompatActivity {
 
     TextView tName, tDob, tBg, tSex, tPhone, tAdd;
+    Button btGetDoc, btHist, btPresc, btEmer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +38,22 @@ public class Patientstart extends AppCompatActivity {
         tSex.setText(sex);
         tPhone.setText(phone);
         tAdd.setText(address);
+    }
+
+
+    public void onGetDoc(View view) {
+        String type = "getDocList";
+
+        BackgroundProcess bgP = new BackgroundProcess(this);
+        bgP.execute(type);
+    }
+
+    public void onGetMyHist(View view) {
+    }
+
+    public void onGetMyPresc(View view) {
+    }
+
+    public void onEmergency(View view) {
     }
 }

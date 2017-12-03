@@ -1,10 +1,15 @@
 <?php
 header('Content-Type: application/json');
-require "connect.php";
-//$username = $_POST["username"];
-//$user_pass = $_POST["password"];
-$username = "abir69@gmail.com";
-$user_pass = "123";
+$host = 'localhost';
+$user= 'root';
+$pass= '';
+$db='medicloud';
+
+$conn = mysqli_connect($host,$user,$pass,$db);
+$username = $_POST["username"];
+$user_pass = $_POST["password"];
+//$username = "abir69@gmail.com";
+//$user_pass = "123";
 
 $test_sql_query = "SELECT isDoctor, generalID FROM accounts WHERE email = '$username' AND password = '$user_pass'";
 $result = mysqli_query($conn, $test_sql_query);

@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,18 +18,17 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
 /**
- * Created by JAKfromSpace on 11-Nov-17.
+ * Coded by JAKfromSpace on 11-Nov-17 for Medicloud.
  */
 
 public class BackgroundProcess extends AsyncTask<String, String, String> {
 
     Context context;
-    String type;
+    String type, endresult;
 
     Intent newIntent;
     boolean loginSuccess = false;
@@ -42,8 +42,9 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
     protected String doInBackground(String... params) {
 
         type = params[0];
-        String loginURL = "http://sks.heliohost.org/login.php";
+        String loginURL = "http://192.168.0.109/MEDICLOUD/login.php";
         String registerURL = "http://sks.heliohost.org/register.php";
+        String getDocURL = "http://192.168.0.109/MEDICLOUD/listdocs.php";
 
         if(type.equals("login")) try {
             String username = params[1];
@@ -78,7 +79,7 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
             boolean isDoc  = responseJSON.getInt("isDoc") > 0;
 
             loginSuccess = responseJSON.getBoolean("success");
-            MainActivity.isDoc = isDoc;
+            //isDoc = isDoc;
 
             reader.close();
             in.close();
@@ -105,11 +106,7 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
                 toast.show();
             }
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -161,22 +158,97 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
         }
-        return null;
+
+        else if(type.equals("getDocList"))try{
+
+            URL url = new URL(getDocURL);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+
+            InputStream in = httpURLConnection.getInputStream();
+            String result;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            in.close();
+            result = sb.toString();
+            Log.i("Json",result);
+
+            //Toast toast = Toast.makeText(context, result, Toast.LENGTH_LONG);
+            //toast.show();
+
+            //JSONObject object = new JSONObject(result);
+
+            JSONArray jsonArray = new JSONArray(result);
+            JSONObject arrayObj = jsonArray.getJSONObject(0);
+            int jsonlength = arrayObj.length();
+            String docInfoArray[][] = new String[jsonlength][7];
+            for (int i = 0; i < jsonlength ; i++) {
+                try{
+                    JSONObject object1 = arrayObj.getJSONObject(String.valueOf(i+1));
+                    docInfoArray[i][0] = object1.getString("did");
+                    docInfoArray[i][1] = object1.getString("name");
+                    docInfoArray[i][2] = object1.getString("spec");
+                    docInfoArray[i][3] = object1.getString("qual");
+                    docInfoArray[i][4] = object1.getString("sex");
+                    docInfoArray[i][5] = object1.getString("phone");
+                    docInfoArray[i][6] = object1.getString("clinadd");
+                    Log.i("loops", String.valueOf(i));
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            String toastMessage = "";
+            for (String[] aDocInfoArray : docInfoArray) {
+                for (int j = 0; j < 7; j++) {
+                    toastMessage += aDocInfoArray[j] + ", ";
+                }
+                toastMessage += " .\n\n";
+            }
+
+            Log.i("JArray",toastMessage);
+            endresult = toastMessage;
+            //Toast toast2 = Toast.makeText(context, toastMessage, Toast.LENGTH_LONG);
+            //toast2.show();
+
+            reader.close();
+            in.close();
+            httpURLConnection.disconnect();
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        return endresult;
     }
+
+
+
 
     @Override
     protected void onPreExecute() {
-
     }
-
     @Override
     protected void onPostExecute(String result) {
         if(type.equals("login") && loginSuccess) {
             context.startActivity(newIntent);
-            Toast toast = Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT);
             toast.show();
-        }else{
-            Toast toast = Toast.makeText(context, "Error, Check Credentials", Toast.LENGTH_LONG);
+        }
+        else if(type.equals("login") && !loginSuccess){
+            Toast toast = Toast.makeText(context, "Login ERROR.\nPlease check and Try Again", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else if(type.equals("getDocList")){
+            Log.i("result",result);
+            Toast toast = Toast.makeText(context, result, Toast.LENGTH_LONG);
             toast.show();
         }
     }
@@ -185,4 +257,5 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
     protected void onProgressUpdate(String... values) {
         super.onProgressUpdate(values);
     }
+
 }

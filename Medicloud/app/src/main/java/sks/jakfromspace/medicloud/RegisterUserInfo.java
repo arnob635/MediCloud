@@ -44,8 +44,6 @@ public class RegisterUserInfo extends AppCompatActivity {
         if(formcom) {
             BackgroundProcess bgProcessUser = new BackgroundProcess(this);
             bgProcessUser.execute(type, str_name, str_dob, str_blood_group, str_sex, str_phone_number, str_address, str_email, str_password);
-            //Button nextUpdateButt = (Button) findViewById(R.id.bt_update);
-            //nextUpdateButt.setEnabled(false);
 
             startActivity(new Intent(getApplicationContext(),MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }

@@ -41,6 +41,6 @@ if($numof_tupples == 0){
 	if($sqlacc && $sqlpat) echo "New Account No.".$new_id." Created for ".$n;
 	else echo "Something went Wrong during Insert";
 }else
-	echo "Query Error";
+	echo "There is Already an account under ".$email;
 
 ?>

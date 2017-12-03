@@ -17,7 +17,7 @@ the schemeas are still under consideration
 
 #Update 2
 database creation has been completed along with schema and
-work on android frontend as begun
+work on android frontend has begun
 activities created for main login screen
 methods implemented for UI interactions
 

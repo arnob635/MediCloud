@@ -43,9 +43,9 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
     protected String[][] doInBackground(String... params) {
 
         type = params[0];
-        String loginURL = "http://192.168.0.109/MEDICLOUD/login.php";
+        String loginURL = "http://sks.heliohost.org/login.php";
         String registerURL = "http://sks.heliohost.org/register.php";
-        String getDocURL = "http://192.168.0.109/MEDICLOUD/listdocs.php";
+        String getDocURL = "http://sks.heliohost.org/listdocs.php";
 
         if(type.equals("login")) try {
             String username = params[1];
@@ -248,7 +248,7 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
             toast.show();
         }
         else if(type.equals("getDocList")){
-            String toastMessage = "";
+            /*String toastMessage = "";
             for (String[] aDocInfoArray : result) {
                 for (int j = 0; j < 7; j++) {
                     toastMessage += aDocInfoArray[j] + ", ";
@@ -256,8 +256,8 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
                 toastMessage += " .\n\n";
             }
             Log.i("result",toastMessage);
-            Toast toast = Toast.makeText(context, toastMessage, Toast.LENGTH_LONG);
-            toast.show();
+            Toast toast = Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT);
+            toast.show();*/
             delegate.BGProcessDone(result);
         }
     }

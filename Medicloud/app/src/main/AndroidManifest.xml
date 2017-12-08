@@ -23,7 +23,8 @@
             android:name=".RegisterUserInfo"
             android:label="@string/title_activity_register_user_info"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Patientstart"></activity>
+        <activity android:name=".Patientstart" />
+        <activity android:name=".DocListActivity"></activity>
     </application>
 
 </manifest>

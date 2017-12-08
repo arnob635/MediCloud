@@ -25,21 +25,22 @@ import java.net.URLEncoder;
  * Coded by JAKfromSpace on 11-Nov-17 for Medicloud.
  */
 
-public class BackgroundProcess extends AsyncTask<String, String, String> {
+public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
 
     Context context;
-    String type, endresult;
+    String type;
 
     Intent newIntent;
     boolean loginSuccess = false;
 
+    public BackgroundResponse delegate = null;
     BackgroundProcess (Context c){
         context = c;
     }
 
 
     @Override
-    protected String doInBackground(String... params) {
+    protected String[][] doInBackground(String... params) {
 
         type = params[0];
         String loginURL = "http://192.168.0.109/MEDICLOUD/login.php";
@@ -152,7 +153,10 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
             reader.close();
             in.close();
             httpURLConnection.disconnect();
-            return result;
+
+            String res2[][] = new String[1][1];
+            res2[0][0] = result;
+            return res2;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -204,29 +208,22 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
                     e.printStackTrace();
                 }
             }
-
-            String toastMessage = "";
-            for (String[] aDocInfoArray : docInfoArray) {
-                for (int j = 0; j < 7; j++) {
-                    toastMessage += aDocInfoArray[j] + ", ";
-                }
-                toastMessage += " .\n\n";
-            }
-
-            Log.i("JArray",toastMessage);
-            endresult = toastMessage;
-            //Toast toast2 = Toast.makeText(context, toastMessage, Toast.LENGTH_LONG);
-            //toast2.show();
-
             reader.close();
             in.close();
             httpURLConnection.disconnect();
+
+
+            //String endresult[][] = new String[1][1];
+            //endresult[0][0] = toastMessage;
+
+            return docInfoArray;
+
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
-        return endresult;
+        return null;
     }
 
 
@@ -236,7 +233,7 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
     }
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(String[][] result) {
         if(type.equals("login") && loginSuccess) {
             context.startActivity(newIntent);
             Toast toast = Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT);
@@ -246,10 +243,22 @@ public class BackgroundProcess extends AsyncTask<String, String, String> {
             Toast toast = Toast.makeText(context, "Login ERROR.\nPlease check and Try Again", Toast.LENGTH_SHORT);
             toast.show();
         }
-        else if(type.equals("getDocList")){
-            Log.i("result",result);
-            Toast toast = Toast.makeText(context, result, Toast.LENGTH_LONG);
+        else if(type.equals(("register"))){
+            Toast toast = Toast.makeText(context, result[0][0], Toast.LENGTH_SHORT);
             toast.show();
+        }
+        else if(type.equals("getDocList")){
+            String toastMessage = "";
+            for (String[] aDocInfoArray : result) {
+                for (int j = 0; j < 7; j++) {
+                    toastMessage += aDocInfoArray[j] + ", ";
+                }
+                toastMessage += " .\n\n";
+            }
+            Log.i("result",toastMessage);
+            Toast toast = Toast.makeText(context, toastMessage, Toast.LENGTH_LONG);
+            toast.show();
+            delegate.BGProcessDone(result);
         }
     }
 

@@ -42,10 +42,7 @@ public class Patientstart extends AppCompatActivity {
 
 
     public void onGetDoc(View view) {
-        String type = "getDocList";
-
-        BackgroundProcess bgP = new BackgroundProcess(this);
-        bgP.execute(type);
+        startActivity(new Intent(this, DocListActivity.class));
     }
 
     public void onGetMyHist(View view) {

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">ListApp</string>
+
+    <string-array name="items">
+        <item>Apple</item>
+        <item>Orange</item>
+        <item>Tomato</item>
+        <item>Random</item>
+    </string-array>
+
+    <string-array name="prices">
+        <item>$0.99</item>
+        <item>$1.47</item>
+        <item>$0.67</item>
+        <item>TBA</item>
+    </string-array>
+
+    <string-array name="description">
+        <item>an apple a day keeps the doctor away</item>
+        <item>fresh oranges</item>
+        <item>I hate tomatoes</item>
+        <item>TBA</item>
+    </string-array>
+
+</resources>

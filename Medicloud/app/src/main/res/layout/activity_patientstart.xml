@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/paticon" />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/specTextView"
         android:layout_width="243dp"
         android:layout_height="34dp"
         android:layout_marginLeft="14dp"
@@ -40,7 +40,7 @@
         android:textSize="16dp"
         android:textColor="#7c4dff"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/specTextView"
         android:layout_marginStart="116dp" />
 
     <TextView
@@ -53,7 +53,7 @@
         android:textSize="16dp"
         android:textColor="#7c4dff"
         app:layout_constraintLeft_toRightOf="@+id/dobTextView"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/specTextView"
         android:layout_marginStart="16dp" />
 
     <TextView
@@ -64,7 +64,7 @@
         android:text="AB++"
         android:textSize="16dp"
         android:textColor="#7c4dff"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/specTextView"
         android:layout_marginStart="15dp"
         app:layout_constraintLeft_toRightOf="@+id/textView2"
         android:layout_marginLeft="16dp" />
@@ -101,7 +101,7 @@
         android:layout_marginTop="10dp"
         android:text="Date of Birth"
         app:layout_constraintBottom_toTopOf="@+id/dobTextView"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/specTextView"
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/dobTextView" />
 
@@ -115,7 +115,7 @@
         android:text="Gender"
         app:layout_constraintBottom_toTopOf="@+id/sexTextView"
         app:layout_constraintLeft_toRightOf="@+id/textView1"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/specTextView"
         app:layout_constraintVertical_bias="0.0"
         android:layout_marginStart="38dp" />
 
@@ -129,7 +129,7 @@
         android:text="Blood Group"
         app:layout_constraintBottom_toTopOf="@+id/BGtextView"
         app:layout_constraintLeft_toRightOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/specTextView"
         android:layout_marginStart="16dp" />
 
     <TextView
@@ -168,7 +168,7 @@
 
     <Button
         android:id="@+id/button2"
-        style="@style/Widget.AppCompat.Button.Colored"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
@@ -180,7 +180,7 @@
 
     <Button
         android:id="@+id/button3"
-        style="@style/Widget.AppCompat.Button.Colored"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"

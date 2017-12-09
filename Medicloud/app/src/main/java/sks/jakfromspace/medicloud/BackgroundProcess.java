@@ -43,9 +43,16 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
     protected String[][] doInBackground(String... params) {
 
         type = params[0];
-        String loginURL = "http://sks.heliohost.org/login.php";
-        String registerURL = "http://sks.heliohost.org/register.php";
-        String getDocURL = "http://sks.heliohost.org/listdocs.php";
+
+        // just comment in and out the type of connect you want to use
+
+        String URLconcat = "http://sks.heliohost.org/";
+        //String URLconcat = "http://192.168.0.109/MEDICLOUD/";
+
+        String loginURL = URLconcat + "login.php";
+        String registerURL = URLconcat + "register.php";
+        String getDocURL = URLconcat + "listdocs.php";
+        String getDocInfoURL = URLconcat + "docinfo.php";
 
         if(type.equals("login")) try {
             String username = params[1];
@@ -223,6 +230,66 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
             e.printStackTrace();
         }
 
+        else if(type.equals("getDocInfo"))try{
+            String did = params[1];
+            //String password = params[2];
+            URL url = new URL(getDocInfoURL);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+
+            OutputStream out = httpURLConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+            String postdata = URLEncoder.encode("did", "UTF-8")+"="+URLEncoder.encode(did, "UTF-8");
+            writer.write(postdata);
+            writer.flush();
+            writer.close();
+            out.close();
+
+            InputStream in = httpURLConnection.getInputStream();
+            String result = "";
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            in.close();
+            result = sb.toString();
+            Log.i("Json",result);
+            JSONObject responseJSON = new JSONObject(result);
+
+            loginSuccess = responseJSON.getBoolean("success");
+            //isDoc = isDoc;
+
+            reader.close();
+            in.close();
+            httpURLConnection.disconnect();
+
+            if(loginSuccess) {
+                String name = responseJSON.getString("name");
+                String dob = responseJSON.getString("did");
+                String bg = responseJSON.getString("spec");
+                //String sex = responseJSON.getString("sex");
+                String phone = responseJSON.getString("phone");
+                //String address = responseJSON.getString("address");
+                //String qual = responseJSON.getString("qual");
+
+                newIntent = new Intent(context, DocGetInfoActivity.class);
+                newIntent.putExtra("name", name);
+                newIntent.putExtra("did", dob);
+                newIntent.putExtra("spec", bg);
+                //newIntent.putExtra("sex", sex);
+                newIntent.putExtra("phone", phone);
+                //newIntent.putExtra("address", address);
+                //newIntent.putExtra("qual", qual);
+            }
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -259,6 +326,11 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
             Toast toast = Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT);
             toast.show();*/
             delegate.BGProcessDone(result);
+        }
+        else if(type.equals("getDocInfo") && loginSuccess){
+            context.startActivity(newIntent);
+            Toast toast = Toast.makeText(context, "Found your Doc!", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 

@@ -3,6 +3,7 @@
     package="sks.jakfromspace.medicloud">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -19,12 +20,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
-        <activity
-            android:name=".RegisterUserInfo"
-            android:label="@string/title_activity_register_user_info"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RegisterUserInfo" />
         <activity android:name=".Patientstart" />
-        <activity android:name=".DocListActivity"></activity>
+        <activity android:name=".DocListActivity" />
+        <activity android:name=".DocGetInfoActivity" />
     </application>
 
 </manifest>

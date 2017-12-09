@@ -1,19 +1,16 @@
 package sks.jakfromspace.medicloud;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class DocListActivity extends AppCompatActivity implements BackgroundResponse, AdapterView.OnItemClickListener {
 
     ListView list;
     String[][] doclist;
-    ArrayAdapter<String> adapter;
+    itemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +26,14 @@ public class DocListActivity extends AppCompatActivity implements BackgroundResp
 
     @Override
     public void BGProcessDone(String[][] output) {
-        String s[] = new String[output.length];
+        String name[] = new String[output.length], did[] = new String[output.length], spec[] = new String[output.length], desc[] = new String[output.length];
         for(int i=0; i<output.length; i++){
-            s[i] = output[i][1]; //i know its 1 because thats where the name is stored in the bgp
+            did[i] = output[i][0];
+            name[i] = output[i][1]; //i know its 1 because that's where the name is stored in the bgp
+            spec[i] = output[i][2];
+            desc[i] = output[i][6];
         }
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_2,s);
+        adapter = new itemAdapter(this, name, spec, did);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
         doclist = output;
@@ -41,7 +41,10 @@ public class DocListActivity extends AppCompatActivity implements BackgroundResp
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TextView temp = (TextView) view;
-        Toast.makeText(this, temp.getText()+" "+position,Toast.LENGTH_SHORT).show();
+        BackgroundProcess bgp = new BackgroundProcess(this);
+        //TextView temp = (TextView) view;
+        bgp.execute("getDocInfo", ""+(position+1));
+        //startActivity(new Intent(this, DocGetInfoActivity.class));
+        //Toast.makeText(this, temp.getText()+" "+position,Toast.LENGTH_SHORT).show();
     }
 }

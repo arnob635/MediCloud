@@ -1,5 +1,8 @@
-package com.example.arnob.listapp;
+package sks.jakfromspace.medicloud;
 
+/**
+ * Coded by JAKfromSpace on 09-Dec-17 for Medicloud.
+ */
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,26 +18,26 @@ public class itemAdapter extends BaseAdapter {
 
     LayoutInflater mInflater;
 
-    String[] items;
-    String[] prices;
-    String[] description;
+    String[] name;
+    String[] spec;
+    String[] desc;
 
     public itemAdapter (Context c,String[] i,String[] p,String[] d){
-        items=i;
-        prices=p;
-        description=d;
+        name = i;
+        spec = p;
+        desc = d;
         mInflater=(LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     @Override
     public int getCount() {
 
-        return items.length;
+        return name.length;
     }
 
     @Override
     public Object getItem(int position)
     {
-        return items[position];
+        return name[position];
     }
 
     @Override
@@ -48,11 +51,11 @@ public class itemAdapter extends BaseAdapter {
         View v=mInflater.inflate(R.layout.mylistview_detail,null);
         TextView nameTextview=(TextView) v.findViewById(R.id.nameTextview);
         TextView descriptionTextview=(TextView) v.findViewById(R.id.descriptionTextview);
-        TextView priceTextview=(TextView) v.findViewById(R.id.priceTextview);
+        TextView priceTextview=(TextView) v.findViewById(R.id.specTextview);
 
-        String name =items[position];
-        String desc= description[position];
-        String cost= prices[position];
+        String name = this.name[position];
+        String desc= this.desc[position];
+        String cost= spec[position];
 
         nameTextview.setText(name);
         descriptionTextview.setText(desc);

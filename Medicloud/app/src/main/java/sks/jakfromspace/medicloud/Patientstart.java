@@ -1,6 +1,7 @@
 package sks.jakfromspace.medicloud;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,7 +19,7 @@ public class Patientstart extends AppCompatActivity {
         setContentView(R.layout.activity_patientstart);
         Intent patintent = getIntent();
 
-        tName = (TextView) findViewById(R.id.nameTextView);
+        tName = (TextView) findViewById(R.id.specTextView);
         tDob = (TextView) findViewById(R.id.dobTextView);
         tBg = (TextView) findViewById(R.id.BGtextView);
         tSex = (TextView) findViewById(R.id.sexTextView);
@@ -52,5 +53,9 @@ public class Patientstart extends AppCompatActivity {
     }
 
     public void onEmergency(View view) {
+        String number = "10678";
+        Uri call = Uri.parse("tel:" + number);
+        Intent surf = new Intent(Intent.ACTION_DIAL, call);
+        startActivity(surf);
     }
 }

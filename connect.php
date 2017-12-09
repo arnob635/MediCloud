@@ -1,9 +1,9 @@
 <?php
 
 $host = 'localhost';
-$user= 'jawadak';
-$pass= 'medicloud';
-$db='jawadak_medicloud';
+$user= 'root';
+$pass= '';
+$db='medicloud';
 
 $conn = mysqli_connect($host,$user,$pass,$db);
 if($conn)

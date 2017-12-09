@@ -40,6 +40,7 @@ if(!$isdoc){
 	$login_array["phone"] = $query_array_p['phone_number'];
 	$login_array["address"] = $query_array_p['address'];
 }
+mysqli_close($conn);
 
 $is_loggedin = mysqli_num_rows($result) > 0;
 $login_array["success"] = $is_loggedin;

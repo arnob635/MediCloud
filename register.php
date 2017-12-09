@@ -42,5 +42,6 @@ if($numof_tupples == 0){
 	else echo "Something went Wrong during Insert";
 }else
 	echo "There is Already an account under ".$email;
+mysqli_close($conn);
 
 ?>

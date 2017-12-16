@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Dec 02, 2017 at 03:13 PM
+-- Generation Time: Dec 16, 2017 at 05:08 AM
 -- Server version: 5.6.35
 -- PHP Version: 5.6.30
 
@@ -47,10 +47,38 @@ INSERT INTO `accounts` (`email`, `password`, `generalID`, `isDoctor`) VALUES
 ('helio@helio.org', 'wow', 9, 0),
 ('ishfaq69@gmail.com', '123', 7, 0),
 ('jawad69@gmail.com', '123', 4, 0),
+('mek@gmail.com', 'qwe', 12, 0),
 ('nubraz69@gmail.com', '123', 5, 0),
 ('nur69@gmail.com', '123', 6, 0),
+('shabbir@gmail.com', 'qwe', 13, 0),
 ('test@test', 'qwe', 10, 0),
 ('tset@jaichaa.com', 'janina', 11, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `appointments`
+--
+
+CREATE TABLE IF NOT EXISTS `appointments` (
+  `pID` varchar(255) NOT NULL,
+  `dID` varchar(255) NOT NULL,
+  `Date` date NOT NULL,
+  `Time` time NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`pID`, `dID`, `Date`, `Time`) VALUES
+('2', '168524679', '2017-12-01', '07:00:00'),
+('4', '168524679', '2017-12-02', '08:00:00'),
+('2', '168524679', '2017-12-01', '07:00:00'),
+('4', '168524679', '2017-12-02', '08:00:00'),
+('1', '2', '2017-07-02', '08:30:00'),
+('1', '2', '2017-07-02', '08:30:00'),
+('2', '1', '2017-07-02', '08:30:00');
 
 -- --------------------------------------------------------
 
@@ -93,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `patients_info` (
   `pID` int(7) NOT NULL AUTO_INCREMENT,
   `address` varchar(250) NOT NULL,
   PRIMARY KEY (`pID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `patients_info`
@@ -110,7 +138,9 @@ INSERT INTO `patients_info` (`name`, `dob`, `blood_group`, `sex`, `phone_number`
 ('Guy Dude', '12.12.12', 'F', 'Male', '01512312300', 8, 'The Streets'),
 ('Helio Server', '22.12.2017', 'A++', 'Female', '1010010101', 9, 'Cloudland'),
 ('Test', '123', 'A', 'Male', '123', 10, 'Qwerty'),
-('A', '2865', 'G', 'G', '506', 11, 'Fh');
+('A', '2865', 'G', 'G', '506', 11, 'Fh'),
+('Ehsan Karim', '12.12.12', 'A+', 'Male', '123456', 12, 'Hdkslshdbkdos \nChkdksls'),
+('Mohammad Shabbir', '12.12.12', 'C++', 'Male', '123456789', 13, 'Djosowwpowow');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -46,8 +46,9 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
 
         // just comment in and out the type of connect you want to use
 
-        String URLconcat = "http://sks.heliohost.org/";
-        //String URLconcat = "http://192.168.0.109/MEDICLOUD/";
+        //String URLconcat = "http://sks.heliohost.org/";
+        //String URLconcat = "http://localhost/MEDICLOUD/";
+        String URLconcat = "http://192.168.0.109/MEDICLOUD/";
 
         String loginURL = URLconcat + "login.php";
         String registerURL = URLconcat + "register.php";
@@ -100,7 +101,9 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
                 String sex = responseJSON.getString("sex");
                 String phone = responseJSON.getString("phone");
                 String address = responseJSON.getString("address");
-                String pID = responseJSON.getString("pID");
+                String pid = responseJSON.getString("pid");
+
+                SingletonPatient.getInstance().setpID(pid);
 
                 newIntent = new Intent(context, Patientstart.class);
                 newIntent.putExtra("patname",patname);
@@ -109,7 +112,6 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
                 newIntent.putExtra("sex",sex);
                 newIntent.putExtra("phone",phone);
                 newIntent.putExtra("address",address);
-                newIntent.putExtra("pID",pID);
             }else{
                 //newIntent = new Intent(context, Docstart.class);
                 Toast toast = Toast.makeText(context, "Hello Doctor " + username, Toast.LENGTH_LONG);
@@ -130,7 +132,6 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
             String address = params[6];
             String email = params[7];
             String password = params[8];
-            String pID = params[9];
             URL url = new URL(registerURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -147,8 +148,7 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
                     +URLEncoder.encode("blood_group", "UTF-8")+"="+URLEncoder.encode(blood_group, "UTF-8")+"&"
                     +URLEncoder.encode("sex", "UTF-8")+"="+URLEncoder.encode(sex, "UTF-8")+"&"
                     +URLEncoder.encode("phone_number", "UTF-8")+"="+URLEncoder.encode(phone_number, "UTF-8")+"&"
-                    +URLEncoder.encode("address", "UTF-8")+"="+URLEncoder.encode(address, "UTF-8") +"&"
-                    +URLEncoder.encode("pID", "UTF-8")+"="+URLEncoder.encode(address, "UTF-8");
+                    +URLEncoder.encode("address", "UTF-8")+"="+URLEncoder.encode(address, "UTF-8");
             System.out.println(postdata);
             writer.write(postdata);
             writer.flush();
@@ -279,7 +279,8 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
                 String phone = responseJSON.getString("phone");
                 //String address = responseJSON.getString("address");
                 //String qual = responseJSON.getString("qual");
-                String pID = responseJSON.getString("pID");
+
+                SingletonPatient.getInstance().setdID(dob);
 
                 newIntent = new Intent(context, DocGetInfoActivity.class);
                 newIntent.putExtra("name", name);
@@ -289,7 +290,6 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
                 newIntent.putExtra("phone", phone);
                 //newIntent.putExtra("address", address);
                 //newIntent.putExtra("qual", qual);
-                newIntent.putExtra("pID", pID);
             }
 
         } catch (IOException | JSONException e) {

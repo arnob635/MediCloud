@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class Patientstart extends AppCompatActivity {
 
-    TextView tName, tDob, tBg, tSex, tPhone, tAdd;
+    TextView tName, tDob, tBg, tSex, tPhone, tAdd,tpID;
     Button btGetDoc, btHist, btPresc, btEmer;
 
     @Override
@@ -25,6 +25,7 @@ public class Patientstart extends AppCompatActivity {
         tSex = (TextView) findViewById(R.id.sexTextView);
         tPhone = (TextView) findViewById(R.id.phoneTextView);
         tAdd = (TextView) findViewById(R.id.addTextView);
+        tpID = (TextView) findViewById(R.id.pIDTextView);
 
         String name = patintent.getExtras().getString("patname");
         String dob = patintent.getExtras().getString("dob");
@@ -32,6 +33,7 @@ public class Patientstart extends AppCompatActivity {
         String sex = patintent.getExtras().getString("sex");
         String phone = patintent.getExtras().getString("phone");
         String address = patintent.getExtras().getString("address");
+        String pID = patintent.getExtras().getString("pID");
 
         tName.setText(name);
         tDob.setText(dob);
@@ -39,6 +41,7 @@ public class Patientstart extends AppCompatActivity {
         tSex.setText(sex);
         tPhone.setText(phone);
         tAdd.setText(address);
+        tpID.setText(pID);
     }
 
 

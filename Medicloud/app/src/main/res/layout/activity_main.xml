@@ -40,7 +40,7 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:text="email"
+        android:text="nur69@gmail.com"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -54,7 +54,7 @@
         android:layout_marginTop="17dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:text="password"
+        android:text="123"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editEmail" />

@@ -3,10 +3,10 @@
 $host = 'localhost';
 $user= 'root';
 $pass= '';
-$db='testdb';
+$db='medicloud';
 
-$con=mysqli_connect($host,$user,$pass,$db);
-if($con)
-echo "connected";
+$conn = mysqli_connect($host,$user,$pass,$db);
+if($conn)
+echo "Connected to Cloud. ";
 
 ?>

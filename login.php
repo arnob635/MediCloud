@@ -29,16 +29,17 @@ if(!$isdoc){
 	$login_array["sex"] = $query_array_p['sex'];
 	$login_array["phone"] = $query_array_p['phone_number'];
 	$login_array["address"] = $query_array_p['address'];
+	$login_array["pid"] = $query_array_p['pID'];
 }else{
 	$login_query = "SELECT * FROM accounts, doctor_info WHERE accounts.generalID=doctor_info.dID AND isDoctor = '$isdoc' AND dID = '$user_id'";
 	$result_d = mysqli_query($conn, $login_query);
 	$query_array_p = mysqli_fetch_array($result_d,MYSQLI_ASSOC);
-	$login_array["patname"] = $query_array_p['name'];
+	/*$login_array["patname"] = $query_array_p['name'];
 	$login_array["dob"] = $query_array_p['dob'];
 	$login_array["bg"] = $query_array_p['blood_group'];
 	$login_array["sex"] = $query_array_p['sex'];
 	$login_array["phone"] = $query_array_p['phone_number'];
-	$login_array["address"] = $query_array_p['address'];
+	$login_array["address"] = $query_array_p['address'];*/
 }
 mysqli_close($conn);
 

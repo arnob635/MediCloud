@@ -18,7 +18,7 @@ public class DocGetInfoActivity extends AppCompatActivity {
 
     TextView tName, tDid, tSpec, tPhone;
     String phone, did, appnDate, appnTime;
-    String[] appnSlots;
+    String[] appnSlots = new String[]{"10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"};
 
     DatePickerDialog.OnDateSetListener dateSetListener;
 
@@ -38,7 +38,7 @@ public class DocGetInfoActivity extends AppCompatActivity {
 
         String name = patintent.getExtras().getString("name");
         did = SingletonPatient.getInstance().getdID();
-        String bg = patintent.getExtras().getString("spec");
+        String bg = patintent.getExtras().getString("date");
         phone = patintent.getExtras().getString("phone");
 
         tName.setText(name);
@@ -62,25 +62,22 @@ public class DocGetInfoActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dialog = new DatePickerDialog(this, android.R.style.Theme_Material_Dialog_MinWidth, dateSetListener, year, month, day);
-        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        //dialog.getWindow().setTitle();
-        dialog.show();
-
-        final Context c = this;
         final String pid = SingletonPatient.getInstance().getpID();
+        final Context c = this;
+
+        DatePickerDialog dialog = new DatePickerDialog(this, android.R.style.Theme_Material_Dialog_MinWidth, dateSetListener, year, month, day);
 
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                appnDate = year + "-" + month + "-" + dayOfMonth;
-                tost(pid+" searching appn with "+did+"\nOn date: "+appnDate);
+                appnDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                //tost(pid+" searching appn with "+did+"\nOn date: "+appnDate);
+                BackgroundProcess bg = new BackgroundProcess(c);
+                bg.execute("setAppn",appnDate, pid, did);
             }
         };
-        appnSlots = new String[]{"10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"};
+        dialog.show();
 
-        //BackgroundProcess bg = new BackgroundProcess(c);
-        //bg.execute("setAppn",appnDate, pid, did);
     }
 
     public void tost(String s){

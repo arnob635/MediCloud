@@ -33,6 +33,18 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
     Intent newIntent;
     boolean loginSuccess = false;
 
+    // just comment in and out the type of connect you want to use
+    //String URLconcat = "http://sks.heliohost.org/";
+    //String URLconcat = "http://localhost/MEDICLOUD/";
+    String URLconcat = "http://192.168.0.109/MEDICLOUD/";
+
+    String loginURL = URLconcat + "login.php";
+    String registerURL = URLconcat + "register.php";
+    String getDocURL = URLconcat + "listdocs.php";
+    String getDocInfoURL = URLconcat + "docinfo.php";
+    String setAppnURL = URLconcat + "set_appointment.php";
+    String getAppnListURL = URLconcat + "listappn.php";
+
     public BackgroundResponse delegate = null;
     BackgroundProcess (Context c){
         context = c;
@@ -43,17 +55,6 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
     protected String[][] doInBackground(String... params) {
 
         type = params[0];
-
-        // just comment in and out the type of connect you want to use
-
-        //String URLconcat = "http://sks.heliohost.org/";
-        //String URLconcat = "http://localhost/MEDICLOUD/";
-        String URLconcat = "http://192.168.0.109/MEDICLOUD/";
-
-        String loginURL = URLconcat + "login.php";
-        String registerURL = URLconcat + "register.php";
-        String getDocURL = URLconcat + "listdocs.php";
-        String getDocInfoURL = URLconcat + "docinfo.php";
 
         if(type.equals("login")) try {
             String username = params[1];
@@ -285,12 +286,116 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
                 newIntent = new Intent(context, DocGetInfoActivity.class);
                 newIntent.putExtra("name", name);
                 newIntent.putExtra("did", dob);
-                newIntent.putExtra("spec", bg);
+                newIntent.putExtra("date", bg);
                 //newIntent.putExtra("sex", sex);
                 newIntent.putExtra("phone", phone);
                 //newIntent.putExtra("address", address);
                 //newIntent.putExtra("qual", qual);
             }
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        else if(type.equals("setAppn")){try {
+            //int id = Integer.parseInt(params[1]);
+            String apnDate = params[1];
+            String pID = params[2];
+            String dID = params[3];
+            URL url = new URL(setAppnURL);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+
+            OutputStream out = httpURLConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+
+            String postdata = URLEncoder.encode("apnDate", "UTF-8")+"="+URLEncoder.encode(apnDate, "UTF-8")+"&"
+                    +URLEncoder.encode("pID", "UTF-8")+"="+URLEncoder.encode(pID, "UTF-8")+"&"
+                    +URLEncoder.encode("dID", "UTF-8")+"="+URLEncoder.encode(dID, "UTF-8");
+            Log.i("Post:",postdata);
+            writer.write(postdata);
+            writer.flush();
+            writer.close();
+            out.close();
+
+            InputStream in = httpURLConnection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in,"iso-8859-1"));
+            String result="", line="";
+            while ((line = reader.readLine()) != null){
+                result += line;
+            }
+            reader.close();
+            in.close();
+            httpURLConnection.disconnect();
+
+            String res2[][] = new String[1][1];
+            res2[0][0] = result;
+            return res2;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
+
+        else if(type.equals("getAppnList"))try{
+
+            String appnPid = params[1];
+
+            URL url = new URL(getAppnListURL);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+
+            OutputStream out = httpURLConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+            String postdata = URLEncoder.encode("pid", "UTF-8")+"="+URLEncoder.encode(appnPid, "UTF-8");
+            writer.write(postdata);
+            writer.flush();
+            writer.close();
+            out.close();
+
+            InputStream in = httpURLConnection.getInputStream();
+            String result;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            in.close();
+            result = sb.toString();
+            Log.i("Json",result);
+
+            JSONArray jsonArray = new JSONArray(result);
+            JSONObject arrayObj = jsonArray.getJSONObject(0);
+            int jsonlength = arrayObj.length();
+            String appnListArr[][] = new String[jsonlength][4];
+            for (int i = 0; i < jsonlength ; i++) {
+                try{
+                    JSONObject object1 = arrayObj.getJSONObject(String.valueOf(i+1));
+                    appnListArr[i][0] = object1.getString("did");
+                    appnListArr[i][1] = object1.getString("docname");
+                    appnListArr[i][2] = object1.getString("date");
+                    appnListArr[i][3] = object1.getString("time");
+                    Log.i("loops", String.valueOf(i));
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            reader.close();
+            in.close();
+            httpURLConnection.disconnect();
+
+
+            //String endresult[][] = new String[1][1];
+            //endresult[0][0] = toastMessage;
+
+            return appnListArr;
+
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -316,11 +421,11 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
             Toast toast = Toast.makeText(context, "Login ERROR.\nPlease check and Try Again", Toast.LENGTH_SHORT);
             toast.show();
         }
-        else if(type.equals(("register"))){
-            Toast toast = Toast.makeText(context, result[0][0], Toast.LENGTH_SHORT);
+        else if(type.equals(("register")) || type.equals("setAppn")){
+            Toast toast = Toast.makeText(context, result[0][0], Toast.LENGTH_LONG);
             toast.show();
         }
-        else if(type.equals("getDocList")){
+        else if(type.equals("getDocList") || type.equals("getAppnList")){
             /*String toastMessage = "";
             for (String[] aDocInfoArray : result) {
                 for (int j = 0; j < 7; j++) {

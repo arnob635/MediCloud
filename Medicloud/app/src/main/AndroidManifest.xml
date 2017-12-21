@@ -24,6 +24,7 @@
         <activity android:name=".Patientstart" />
         <activity android:name=".DocListActivity" />
         <activity android:name=".DocGetInfoActivity" />
+        <activity android:name=".AppointmentList" />
     </application>
 
 </manifest>

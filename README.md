@@ -53,4 +53,25 @@ app should receive JSON as JSONarray but error is thrown.
 #Update 7
 JSONarray error fixed. 
 multiple rows received properly. 
-loop editted to go through JSONobject gotten after JSONarray. 
+loop editted to go through JSONobject gotten after JSONarray.
+doclist displayed as ListView
+
+#Update 8
+Appointment relations designed and put in db
+internal SQL queries run and tested
+constraints made on pid did date
+
+#Update 9
+Android activity for appointment list 
+Android DatePicker used for setting dates
+PHP and queries coded for appointment set
+time selection happens automatically and conditioned by dates
+
+#Update 10
+appointment PHP queries connected to Android
+BackgroundProcess written
+ListView for Appn made and Implemented
+bug checks done 
+*remaining bug: date must be picked twice for some reason*
+
+DevLog-END------------------------------------------------

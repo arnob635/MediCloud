@@ -14,18 +14,18 @@ import android.widget.TextView;
  * Created by arnob on 8/30/2017.
  */
 
-public class itemAdapter extends BaseAdapter {
+public class itemAdapter2 extends BaseAdapter {
 
     LayoutInflater mInflater;
 
     String[] name;
-    String[] spec;
-    String[] desc;
+    String[] date;
+    String[] time;
 
-    public itemAdapter (Context c,String[] i,String[] p,String[] d){
+    public itemAdapter2 (Context c,String[] i,String[] p,String[] d){
         name = i;
-        spec = p;
-        desc = d;
+        date = p;
+        time = d;
         mInflater=(LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     @Override
@@ -48,20 +48,18 @@ public class itemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v=mInflater.inflate(R.layout.mylistview_detail,null);
-        TextView nameTextview=(TextView) v.findViewById(R.id.nameTextview);
-        TextView descriptionTextview=(TextView) v.findViewById(R.id.descriptionTextview);
-        TextView priceTextview=(TextView) v.findViewById(R.id.specTextview);
+        View v=mInflater.inflate(R.layout.mylistview_appn,null);
+        TextView nameTextview=(TextView) v.findViewById(R.id.docnameListText);
+        TextView dateTextview=(TextView) v.findViewById(R.id.dateListText);
+        TextView timeTextview=(TextView) v.findViewById(R.id.timeListText);
 
         String name = this.name[position];
-        String desc= this.desc[position];
-        String cost= this.spec[position];
+        String date= this.date[position];
+        String time= this.time[position];
 
         nameTextview.setText(name);
-        descriptionTextview.setText(desc);
-        priceTextview.setText(cost);
-
-
+        dateTextview.setText(date);
+        timeTextview.setText(time);
 
         return v;
     }

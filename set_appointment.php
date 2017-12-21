@@ -6,13 +6,13 @@ $db='medicloud';
 
 $conn = mysqli_connect($host,$user,$pass,$db);
 
-$pID= "2";
-$dID = "2";
-$date = "2017-12-29";
+$pID= $_POST["pID"];
+$dID = $_POST["dID"];
+$date = $_POST["apnDate"];
 
 date_default_timezone_set('Asia/Dhaka');
 $today = date("Y-m-d");
-if($today>=$date){
+if($today>$date){
 	mysqli_close($conn);
 	exit("Date Set has Already Passed");
 }
@@ -37,7 +37,7 @@ else{
 if($timevar>0){
 	$query_insert = "INSERT INTO appointments (pID, dID, date, time) VALUES ('$pID', '$dID', '$date', '$timevar')";
 	$sqlsapnt = mysqli_query($conn, $query_insert);
-	if($sqlsapnt) echo "Appointment Set for ".$date." with DocNo.".$dID." Slot:".$timevar;
+	if($sqlsapnt) echo "Appointment Set for ".$date."\n"."with DocNo.".$dID." Slot:".$timevar;
 	else echo "You already have an appointment that day";
 }
 else echo "Something went wrong";

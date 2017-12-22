@@ -1,0 +1,140 @@
+body{
+  background:#f4f4f4;
+}
+
+/* Navbar */
+.navbar{
+  min-height: 33px !important;
+  margin-bottom:0;
+  border-radius:0;
+}
+
+.navbar-nav > li > a, .navbar-brand{  /* Navbar band is where the logo is */
+  padding-top:6px !important;
+  padding-bottom:0 !important;
+  height: 33px;
+}
+
+
+.navbar-default {
+  background-color: #59b678;
+  border-color: #000000;
+}
+.navbar-default .navbar-brand {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #256d1c;
+}
+.navbar-default .navbar-text {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-nav .nav-link {
+  color: #ecf0f1;
+  border-radius: .25rem;
+  margin: 0 0.25em;
+}
+.navbar-default .navbar-nav .nav-link:not(.disabled):hover,
+.navbar-default .navbar-nav .nav-link:not(.disabled):focus {
+  color: #256d1c;
+}
+.navbar-default .navbar-nav .nav-item.active .nav-link,
+.navbar-default .navbar-nav .nav-item.active .nav-link:hover,
+.navbar-default .navbar-nav .nav-item.active .nav-link:focus,
+.navbar-default .navbar-nav .nav-item.show .nav-link,
+.navbar-default .navbar-nav .nav-item.show .nav-link:hover,
+.navbar-default .navbar-nav .nav-item.show .nav-link:focus {
+  color: #256d1c;
+  background-color: #7fd94a;
+}
+.navbar-default .navbar-toggle {
+  border-color: #7fd94a;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #7fd94a;
+}
+.navbar-default .navbar-toggle .navbar-toggler-icon {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #ecf0f1;
+}
+.navbar-default .navbar-link {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-link:hover {
+  color: #256d1c;
+}
+
+
+/* Custom */
+.main-color-bg{
+  background-color: #59b678 !important;
+  border-color: #000000 !important;
+  color:#ffffff !important;
+}
+
+/* Header */
+#header{
+  background:#2F4F4F;
+  color:#ffffff;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+#header .create{
+  padding-top: 20px;
+}
+
+/* Breadcrumb, graphical control element  */
+.breadcrumb{
+  background:#8FBC8F;
+  color:#333333;
+}
+
+.breadcrumb a{
+  color:#333333;
+}
+
+/* Progress Bars */
+.progress-bar{
+  background:#333333;
+  color:#ffffff;
+}
+
+.dash-box{
+  text-align:center;
+}
+
+#login{
+  margin-top:30px;
+}
+
+/* Footer */
+#footer{
+  background:#333333;
+  color:#ffffff;
+  text-align:center;
+  padding:30px;
+  margin-top:30px;
+}
+
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ecf0f1;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #dfffdb;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #dfffdb;
+    background-color: #7fd94a;
+  }
+}

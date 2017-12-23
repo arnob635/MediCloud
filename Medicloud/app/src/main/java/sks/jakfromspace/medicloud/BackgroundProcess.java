@@ -34,9 +34,9 @@ public class BackgroundProcess extends AsyncTask<String, String, String[][]> {
     boolean loginSuccess = false;
 
     // just comment in and out the type of connect you want to use
-    String URLconcat = "http://sks.heliohost.org/";
+    //String URLconcat = "http://sks.heliohost.org/";
    // String URLconcat = "http://localhost/MEDICLOUD/";
-   // String URLconcat = "http://127.0.0.1/Medicloud/";
+    String URLconcat = "http://192.168.0.110/";
 
     String loginURL = URLconcat + "login.php";
     String registerURL = URLconcat + "register.php";
